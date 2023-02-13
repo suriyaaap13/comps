@@ -1,30 +1,34 @@
-import React from 'react';
-import Button from './components/button';
-import { GoBell, GoCloudUpload, GoDatabase } from 'react-icons/go';
+import { useState } from "react";
+import Accordion from "./components/Accordion";
 
 export default function App() {
+
+  const content = [
+    {
+        'id': '0',
+        'label': 'Can I use React in an application ?',
+        'content': 'Phasellus cursus dignissim metus, in gravida augue posuere quis. Pellentesque cursus ornare mauris in imperdiet. Nunc nisl arcu, elementum ut ultrices et, sodales at purus. Fusce et magna placerat, luctus nulla nec, aliquet magna. Nullam eu egestas urna, sed finibus orci. Donec non mauris tellus. Vivamus vehicula lectus ut velit dictum eleifend. Maecenas ultricies metus in arcu congue tincidunt. Mauris venenatis aliquam risus a bibendum.'
+    },
+    {
+        'id': '1',
+        'label': 'Can I use Javascript in an application ?',
+        'content': 'Phasellus cursus dignissim metus, in gravida augue posuere quis. Pellentesque cursus ornare mauris in imperdiet. Nunc nisl arcu, elementum ut ultrices et, sodales at purus. Fusce et magna placerat, luctus nulla nec, aliquet magna. Nullam eu egestas urna, sed finibus orci. Donec non mauris tellus. Vivamus vehicula lectus ut velit dictum eleifend. Maecenas ultricies metus in arcu congue tincidunt. Mauris venenatis aliquam risus a bibendum.'
+    },
+    {
+        'id': '2',
+        'label': 'Can I use CSS in an application ?',
+        'content': 'Phasellus cursus dignissim metus, in gravida augue posuere quis. Pellentesque cursus ornare mauris in imperdiet. Nunc nisl arcu, elementum ut ultrices et, sodales at purus. Fusce et magna placerat, luctus nulla nec, aliquet magna. Nullam eu egestas urna, sed finibus orci. Donec non mauris tellus. Vivamus vehicula lectus ut velit dictum eleifend. Maecenas ultricies metus in arcu congue tincidunt. Mauris venenatis aliquam risus a bibendum.'
+    }
+  ]
+
+  const [ items, setItems ] = useState(content);
+
+
+
+
   return (
     <div>
-      <div>
-        <Button primary outline rounded>
-          <GoBell className='mr-1'/>
-          Buy Now
-        </Button>
-      </div>
-      <div>
-        <Button warning rounded>
-          <GoCloudUpload/>
-          Add to Cart
-        </Button>
-      </div>
-      <div>
-        <Button danger>
-          Add to Whislist
-        </Button>
-      </div>
-      <div><Button secondary outline>Account</Button></div>
-      <div><Button success rounded>Checkout</Button></div>
-      
+      <Accordion items={items} />
     </div>
   )
 }
