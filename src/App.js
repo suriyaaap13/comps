@@ -4,11 +4,11 @@ import { useState } from 'react';
 
 export default function App() {
 
-  const [selected, setSelected] = useState("Select...");
+  const [selected, setSelected] = useState(null);
 
-  const handleSelect = (str)=>{
+  const handleSelect = (option)=>{
     setSelected(()=>{
-      return str;
+      return option;
     });
   }
 
@@ -29,7 +29,7 @@ export default function App() {
 
   return (
     <div>
-      <Dropdown options = {options} selected = {selected} handleSelect={handleSelect} />
+      <Dropdown options = {options} value = {selected} onSelect={handleSelect} />
     </div>
   );
 }
