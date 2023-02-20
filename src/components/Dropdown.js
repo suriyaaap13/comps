@@ -1,12 +1,19 @@
 import React from 'react';
 import Panel from './Panel';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { GoChevronDown } from "react-icons/go";
 
 
 export default function Dropdown({ options, onSelect, value }) {
   
   const [isOpen, setisOpen] = useState(false);
+
+  useEffect(()=>{
+    const handler = (event)=>{
+      console.log(event.target);
+    };
+    document.addEventListener('click', handler, true);
+  }, []);
 
   const handleExpanded = ()=>{
     setisOpen((currentIsOpen) => !currentIsOpen );
