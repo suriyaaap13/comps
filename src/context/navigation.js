@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 const NavigationContext = createContext();
 
-function NavigationProvider() {
+function NavigationProvider({children}) {
   
     const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
@@ -23,14 +23,11 @@ function NavigationProvider() {
 
     function navigate(to){
         window.history.pushState({}, '', to);
-        console.log(to);
     }
   
     return (
-        <NavigationContext.Provider value = {{}}>
-            <button onClick={() => navigate('/accordion')}>Go to accordion</button>
-            <button onClick={() => navigate('/dropdown')}>Go to dropdown</button>
-            <div>{currentPath}</div>
+        <NavigationContext.Provider value = {{navigate, currentPath}}>
+            {children}
         </NavigationContext.Provider>
     );
 }
