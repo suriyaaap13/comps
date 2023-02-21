@@ -1,9 +1,15 @@
-import React from 'react';
+import classNames from 'classnames';
 import useNavigation from '../hooks/use-navigation'
 
-export default function Link({to, children}) {
+export default function Link({to, children, className, activeClassName}) {
 
-    const { navigate } = useNavigation();
+    const { navigate, currentPath } = useNavigation();
+
+    const finalClassName = classNames(
+        className, 
+        'text-blue-500',
+        to === currentPath && activeClassName
+    );
 
     function handleClick(event){
         if(event.metaKey || event.ctrlKey)
@@ -13,7 +19,7 @@ export default function Link({to, children}) {
     }
 
     return (
-        <a className='text-blue-500' href={to} onClick={handleClick}>
+        <a className={finalClassName} href={to} onClick={handleClick}>
             {children}
         </a>
     )
