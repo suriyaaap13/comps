@@ -23,6 +23,7 @@ function NavigationProvider({children}) {
 
     function navigate(to){
         window.history.pushState({}, '', to);
+        setCurrentPath(to);
     }
   
     return (
