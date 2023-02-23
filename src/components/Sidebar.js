@@ -14,6 +14,10 @@ export default function Sidebar() {
         {
             label: 'Button',
             path: '/button'
+        },
+        {
+            label: 'Modal',
+            path: '/modal'
         }
     ];
 

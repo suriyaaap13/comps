@@ -1,11 +1,11 @@
 import React from 'react';
 import { NavigationProvider } from './context/navigation';
-import Link from './components/Link';
 import Route from './components/Route';
 import AccordionPage from './pages/AccordianPage';
 import DropdownPage from './pages/DropdownPage';
 import ButtonPage from './pages/ButtonPage';
 import Sidebar from './components/Sidebar';
+import ModalPage from './pages/ModalPage';
 
 export default function App() {
   return (
@@ -21,6 +21,9 @@ export default function App() {
           </Route>
           <Route path='/button'>
             <ButtonPage/>
+          </Route>
+          <Route path='/modal'>
+            <ModalPage/>
           </Route>
         </div>
       </div>
