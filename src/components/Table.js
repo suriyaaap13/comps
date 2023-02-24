@@ -1,23 +1,23 @@
-import classNames from "classnames";
+
 
 export default function Table({ data }) {
 
     
     const renderedData = data.map((element)=>{
-        const finalClassName = classNames('box-border h-7 w-7', element.color);
+        
         return (
-            <tr>
-                <td>{element.name}</td>
-                <td>
-                    <div className={finalClassName}></div>
+            <tr className="border-b">
+                <td className='p-3'>{element.name}</td>
+                <td className='p-3'>
+                    <div className={`p-3 m-2 ${element.color}`}></div>
                 </td>
-                <td>{element.score}</td>
+                <td className='p-3'>{element.score}</td>
             </tr>
         )
     });
 
   return (
-    <table className="table-auto">
+    <table className="table-auto border-spacing-2">
         <thead className="border-b-2 border-black">
             <tr>
                 <th>Fruit</th>
