@@ -31,7 +31,30 @@ export default function SortableTable(props) {
         }
     }
 
-    let sortedData = data;
+    const sortFn = (data, col)=>{
+
+        const reverseOrder = sortOrder === 'asc' ? 1 : -1;
+        data.sort((A, B)=>{
+            const a = col.sortValue(A);
+            const b = col.sortValue(B);
+
+            if(typeof(a) === 'string'){
+                return a.localeCompare(b)*reverseOrder;
+            }
+            return (a - b)*reverseOrder;
+        });
+        return data;
+    }
+
+    let sortedData = [...data];
+    
+    if(sortBy && sortOrder){
+        const column = config.find((column) => column.label === sortBy);
+        if(column.sortValue)
+            sortedData = sortFn(sortedData, column);
+    }
+
+    
 
     
 
@@ -77,7 +100,7 @@ export default function SortableTable(props) {
   return <div>
     {sortBy}-
     {sortOrder}
-    <Table {...props} config = {updatedConfig} />
+    <Table {...props} data = {sortedData} config = {updatedConfig} />
   </div>
   
 }
