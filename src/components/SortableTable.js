@@ -1,10 +1,15 @@
 import { useState } from "react";
 import Table from "./Table"
+import { FaCaretUp, FaCaretDown } from "react-icons/fa";
+// FaCaretUp FaCaretDown
+
 
 export default function SortableTable(props) {
 
     const [sortOrder, setSortOrder] = useState(null);
     const [sortBy, setSortBy] = useState(null);
+
+    const { config, data } = props;
 
     const handleClick = (label)=>{
 
@@ -26,6 +31,30 @@ export default function SortableTable(props) {
         }
     }
 
+    let sortedData = data;
+
+    
+
+    const getIcons = (label)=>{
+        // <FaCaretUp/>
+        // <FaCaretDown/>
+        if(sortOrder === null || label !== sortBy){
+            return <>
+                <FaCaretUp/>
+                <FaCaretDown/>
+            </>
+        }
+
+        if(label === sortBy){
+            if(sortOrder === 'asc'){
+                return <FaCaretUp/>;
+            }else if(sortOrder === 'desc'){
+                return <FaCaretDown/>;
+            }
+        }
+
+    }
+
     const updatedConfig = props.config.map((column)=>{
         
         if(!column.sortValue){
@@ -34,7 +63,12 @@ export default function SortableTable(props) {
         return {
             ...column, 
             header: () =>
-            <th onClick = {()=>handleClick(column.label)}>{column.label} is Sortable</th>
+            <th className="flex items-center" onClick = {()=>handleClick(column.label)}>
+                <div>
+                    {getIcons(column.label)}
+                </div>
+                {column.label}
+            </th>
         };
     }
 
