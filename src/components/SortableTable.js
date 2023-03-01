@@ -1,8 +1,6 @@
 import { useState } from "react";
 import Table from "./Table"
 import { FaCaretUp, FaCaretDown } from "react-icons/fa";
-// FaCaretUp FaCaretDown
-
 
 export default function SortableTable(props) {
 
@@ -31,41 +29,31 @@ export default function SortableTable(props) {
         }
     }
 
-    const sortFn = (data, col)=>{
-
-        const reverseOrder = sortOrder === 'asc' ? 1 : -1;
-        data.sort((A, B)=>{
-            const a = col.sortValue(A);
-            const b = col.sortValue(B);
-
+    let sortedData = [...data];
+    
+    if(sortBy && sortOrder){
+        const column = config.find((column) => column.label === sortBy);
+    
+        const { sortValue } = column;
+        
+        sortedData = [...data].sort((A, B)=>{
+            const a = sortValue(A);
+            const b = sortValue(B);
+            const reverseOrder = sortOrder === 'asc' ? 1 : -1;
             if(typeof(a) === 'string'){
                 return a.localeCompare(b)*reverseOrder;
             }
             return (a - b)*reverseOrder;
         });
-        return data;
+    
     }
-
-    let sortedData = [...data];
-    
-    if(sortBy && sortOrder){
-        const column = config.find((column) => column.label === sortBy);
-        if(column.sortValue)
-            sortedData = sortFn(sortedData, column);
-    }
-
-    
-
-    
 
     const getIcons = (label)=>{
-        // <FaCaretUp/>
-        // <FaCaretDown/>
         if(sortOrder === null || label !== sortBy){
-            return <>
+            return <div>
                 <FaCaretUp/>
                 <FaCaretDown/>
-            </>
+            </div>
         }
 
         if(label === sortBy){
@@ -86,21 +74,17 @@ export default function SortableTable(props) {
         return {
             ...column, 
             header: () =>
-            <th className="flex items-center" onClick = {()=>handleClick(column.label)}>
-                <div>
+            <th  onClick = {()=>handleClick(column.label)}>
+                <div className="flex items-center">
                     {getIcons(column.label)}
+                    {column.label}
                 </div>
-                {column.label}
             </th>
         };
     }
 
     )
 
-  return <div>
-    {sortBy}-
-    {sortOrder}
-    <Table {...props} data = {sortedData} config = {updatedConfig} />
-  </div>
+  return <Table {...props} data = {sortedData} config = {updatedConfig} />
   
 }
