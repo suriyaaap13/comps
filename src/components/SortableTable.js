@@ -1,53 +1,12 @@
-import { useState } from "react";
-import Table from "./Table"
 import { FaCaretUp, FaCaretDown } from "react-icons/fa";
+import Table from "./Table";
+import useSort from '../hooks/use-sort';
 
 export default function SortableTable(props) {
-
-    const [sortOrder, setSortOrder] = useState(null);
-    const [sortBy, setSortBy] = useState(null);
-
     const { config, data } = props;
+    const {sortBy, sortOrder, sortedData, setSortColumn} = useSort(data, config);
 
-    const handleClick = (label)=>{
-
-        if(sortOrder && sortBy !== label){
-            setSortBy(label);
-            setSortOrder('asc');
-            return;
-        }
-
-        if(sortOrder === 'asc'){
-            setSortOrder('desc');
-            setSortBy(label);
-        }else if(sortOrder === 'desc'){
-            setSortOrder(null);
-            setSortBy(label);
-        }else if(sortOrder === null){
-            setSortOrder('asc');
-            setSortBy(label);
-        }
-    }
-
-    let sortedData = [...data];
     
-    if(sortBy && sortOrder){
-        const column = config.find((column) => column.label === sortBy);
-    
-        const { sortValue } = column;
-        
-        sortedData = [...data].sort((A, B)=>{
-            const a = sortValue(A);
-            const b = sortValue(B);
-            const reverseOrder = sortOrder === 'asc' ? 1 : -1;
-            if(typeof(a) === 'string'){
-                return a.localeCompare(b)*reverseOrder;
-            }
-            return (a - b)*reverseOrder;
-        });
-    
-    }
-
     const getIcons = (label)=>{
         if(sortOrder === null || label !== sortBy){
             return <div>
@@ -65,6 +24,9 @@ export default function SortableTable(props) {
         }
 
     }
+    
+
+    
 
     const updatedConfig = props.config.map((column)=>{
         
@@ -74,16 +36,14 @@ export default function SortableTable(props) {
         return {
             ...column, 
             header: () =>
-            <th  onClick = {()=>handleClick(column.label)}>
+            <th  onClick = {()=>setSortColumn(column.label)}>
                 <div className="flex items-center">
                     {getIcons(column.label)}
                     {column.label}
                 </div>
             </th>
         };
-    }
-
-    )
+    });
 
   return <Table {...props} data = {sortedData} config = {updatedConfig} />
   

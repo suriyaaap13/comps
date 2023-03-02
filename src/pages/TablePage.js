@@ -23,6 +23,11 @@ export default function TablePage() {
             label: 'Score', 
             render: (fruit)=>fruit.score,
             sortValue: (fruit) => fruit.score,
+        },
+        {
+          label: 'Sq. Score',
+          render: (fruit) => fruit.score **2,
+          sortValue: (fruit) => fruit.score,
         }
     ];
 
