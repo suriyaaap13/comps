@@ -24,9 +24,6 @@ export default function SortableTable(props) {
         }
 
     }
-    
-
-    
 
     const updatedConfig = props.config.map((column)=>{
         
