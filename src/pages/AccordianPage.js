@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+// import { useState } from "react";
 import Accordion from "../components/Accordion";
 
 export default function AccordionPage() {
@@ -21,12 +21,11 @@ export default function AccordionPage() {
     }
   ]
 
-  const [ items, setItems ] = useState(content);
-  
+  // const [ items, setItems ] = useState(content);
 
   return (
     <div>
-      <Accordion items={items} />
+      <Accordion items={content} />
     </div>
   )
 }

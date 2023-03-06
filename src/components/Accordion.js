@@ -9,7 +9,6 @@ export default function Accordion({ items }) {
   const handleClick = (index)=>{
     
     setExpandedItem((current)=>{
-      // console.log("Hello World", expandedItem, current, index);
       if(current === index)
         return -1;
       else
