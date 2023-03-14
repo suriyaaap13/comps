@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import Panel from '../components/Panel';
 import Button from '../components/Button';
-
+import produce from 'immer';
 
 export default function CounterPage() {
 
@@ -13,32 +13,24 @@ export default function CounterPage() {
     const reducer = (state, action)=>{
         switch(action.type){
             case INCREMENT_VALUE: 
-                return {
-                    ...state,
-                    count: state.count + 1
-                };
+                state.count = state.count + 1
+                return;
             case DECREMENT_VALUE:
-                return {
-                    ...state,
-                    count: state.count - 1
-                }
+                state.count = state.count - 1;
+                return;
             case ADD_VALUE:
-                return {
-                    ...state,
-                    count: state.count + state.valueToAdd,
-                    valueToAdd: 0
-                };
+                state.count = state.count + state.valueToAdd;
+                state.valueToAdd = 0;
+                return;
             case SET_VALUE_TO_ADD:
-                return {
-                    ...state,
-                    valueToAdd: action.payload
-                };
-            default: return state
+                state.valueToAdd = action.payload;
+                return;
+            default: return;
         }
         
     }
 
-    const [state, dispatch] = useReducer(reducer, {
+    const [state, dispatch] = useReducer(produce(reducer), {
         count: 0,
         valueToAdd: 0
     });
@@ -49,7 +41,6 @@ export default function CounterPage() {
         dispatch({
             type: INCREMENT_VALUE
         })
-        console.log("HEllo World");
     }
     const decrement = () => {
         dispatch({
@@ -85,7 +76,7 @@ export default function CounterPage() {
       </div>
         <form className='my-5 mx-3' onSubmit={addValue}>
             <div className='my-3'>Add More</div>
-            <input type="number" onChange={handleChange} className='shadow w-52 focus:outline-none py-1 px-2 bg-gray-300'/>
+            <input type="number" value={state.valueToAdd||''} onChange={handleChange} className='shadow w-52 focus:outline-none py-1 px-2 bg-gray-300'/>
             <Button type='submit' secondary outline className = 'mt-3' onClick={addValue}>Add it</Button>
         </form>
     </Panel>
