@@ -6,7 +6,7 @@ export default function Link({to, children, className, activeClassName}) {
     const { navigate, currentPath } = useNavigation();
 
     const finalClassName = classNames(
-        className, 
+        className,
         'text-blue-500',
         to === currentPath && activeClassName
     );
