@@ -76,7 +76,7 @@ export default function CounterPage() {
       </div>
         <form className='my-5 mx-3' onSubmit={addValue}>
             <div className='my-3'>Add More</div>
-            <input type="number" value={state.valueToAdd||''} onChange={handleChange} className='shadow w-52 focus:outline-none py-1 px-2 bg-gray-300'/>
+            <input type="number" value={state.valueToAdd||' '} onChange={handleChange} className='shadow w-52 focus:outline-none py-1 px-2 bg-gray-300'/>
             <Button type='submit' secondary outline className = 'mt-3' onClick={addValue}>Add it</Button>
         </form>
     </Panel>
