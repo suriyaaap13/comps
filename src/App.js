@@ -8,6 +8,7 @@ import Sidebar from './components/Sidebar';
 import ModalPage from './pages/ModalPage';
 import TablePage from './pages/TablePage';
 import CounterPage from './pages/CounterPage';
+import ReduxCounterPage from './pages/ReduxCounterPage';
 
 export default function App() {
   return (
@@ -32,6 +33,9 @@ export default function App() {
           </Route>
           <Route path='/counter'>
             <CounterPage/>
+          </Route>
+          <Route path='/redux'>
+            <ReduxCounterPage/>
           </Route>
         </div>
       </div>
